@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
+import { minhaStore, persistor } from './store';
 
 
 const root = ReactDOM.createRoot(
@@ -8,7 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={minhaStore}>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>  
+    </Provider>
   </React.StrictMode>
 );
 
