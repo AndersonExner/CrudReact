@@ -8,7 +8,6 @@ import { rootReducer } from './modules/rootReducer';
 const persistedReducer = persistReducer(
   {
     key: 'app',
-    //whitelist: ['users'],
     storage: meuStorage,
   }, 
   rootReducer

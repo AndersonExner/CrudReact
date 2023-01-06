@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const imagebg = require('../../assets/image-bg.jpg')
+const imagebg = require('../../assets/image-bg2.jpg')
 
 export const BannerImage = styled.figure`
   width: 60%;
@@ -10,5 +10,8 @@ export const BannerImage = styled.figure`
   background-position: center;
 
 `;
+
+
+
 
 

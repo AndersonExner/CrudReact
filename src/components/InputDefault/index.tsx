@@ -6,7 +6,7 @@ interface InputDefaultProps {
     name: InputName;
     label: string;
     value: string;
-    color: 'error' | 'secondary';
+    color: 'error'  | 'primary';
     handleChange: (value: string, key: InputName) => void;
 }
 

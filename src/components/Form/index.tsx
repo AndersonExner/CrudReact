@@ -3,7 +3,8 @@ import { InputDefault, InputName } from "../InputDefault";
 import { Stack, Button, Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addNovoUsuario } from "../../store/modules/users/usersSlice";
+import { addNovoUsuario, buscarUsuario } from "../../store/modules/users/usersSlice";
+import { setUsuarioLogado } from "../../store/modules/userLogged/userLoggedSlice";
 
 
 export interface FormProps {
@@ -24,7 +25,7 @@ export function Form({ type }: FormProps) {
   const [errorPassword, setErrorPassword] = useState(false);
 
 //pegando informaçoes de usuarios com redux
-  const usersRedux = useAppSelector((state) => state.users);
+  const usersRedux = useAppSelector(buscarUsuario);
 
 //variavel que recebe o retorno
   const dispatch = useAppDispatch();
@@ -156,39 +157,35 @@ export function Form({ type }: FormProps) {
 
        if(confirma) {
             navigate('/signup')
-       }else{
-        return;
        }
-    }else{
-      localStorage.setItem('usuarioLogado', JSON.stringify(userExist))
-      
-      alert('Login efetuado com sucesso! Redirecionando...')
+    }
+
+      dispatch(setUsuarioLogado({ name: userExist!.name, email: userExist!.email, password: userExist!.password}));
+      alert("Login efetuado, voce será redirecionado...")
       setTimeout(() => {
           navigate('/home')
-      }, 1500)
+      }, 1000)
     }
-}
-
-
+    
   return (
     <>
       <Stack spacing={2} direction="column" sx={{ width: '80%' }}>
         {type === 'login' && (
           <>
-            <InputDefault type="email" label="E-mail" name="email" value={email} handleChange={selectInput} color={errorEmail ? 'error' : 'secondary'}/>
-            <InputDefault type="password" label="Senha" name="password" value={password} handleChange={selectInput} color={errorPassword ? 'error' : 'secondary'} />
-            <Button variant="contained" color="secondary" onClick={login}>Acessar</Button>
-            <Typography color='secondary' variant='subtitle2'>Não tem conta? <Typography variant='button' color='secondary' sx={{ cursor: 'pointer' }} onClick={handleNavigate}>Cadastre-se</Typography></Typography>
+            <InputDefault type="email" label="E-mail" name="email" value={email} handleChange={selectInput} color={errorEmail ? 'error' : 'primary'}/>
+            <InputDefault type="password" label="Senha" name="password" value={password} handleChange={selectInput} color={errorPassword ? 'error' : 'primary'} />
+            <Button variant="contained" color="primary" onClick={login}>Acessar</Button>
+            <Typography color="primary" variant='subtitle2'>Não tem conta? <Typography variant='button' color='primary' sx={{ cursor: 'pointer' }} onClick={handleNavigate}>Cadastre-se</Typography></Typography>
           </>
         )}
         {type === 'signup' && (
           <>
-            <InputDefault type="text" label="Nome" name="name" color={errorName ? 'error' : 'secondary'} value={name} handleChange={selectInput} />
-            <InputDefault type="email" label="Email" name="email" color={errorEmail ? 'error' : 'secondary'} value={email} handleChange={selectInput} />
-            <InputDefault type="password" label="Senha" name="password" color={errorPassword ? 'error' : 'secondary'} value={password} handleChange={selectInput} />
-            <InputDefault type="password" label="Repita a Senha" name="repassword" color={errorPassword ? 'error' : 'secondary'} value={repassword} handleChange={selectInput} />
-            <Button disabled={errorName || errorEmail || errorPassword} variant='contained' color='secondary' onClick={createAccount}>Criar Conta</Button>
-            <Typography color='secondary' variant='subtitle2'>Já tem conta? <Typography variant='button' color='secondary' sx={{cursor: 'pointer'}} onClick={handleNavigate}>Fazer Login</Typography></Typography>
+            <InputDefault type="text" label="Nome" name="name" color={errorName ? 'error' : 'primary'} value={name} handleChange={selectInput} />
+            <InputDefault type="email" label="Email" name="email" color={errorEmail ? 'error' : 'primary'} value={email} handleChange={selectInput} />
+            <InputDefault type="password" label="Senha" name="password" color={errorPassword ? 'error' : 'primary'} value={password} handleChange={selectInput} />
+            <InputDefault type="password" label="Repita a Senha" name="repassword" color={errorPassword ? 'error' : 'primary'} value={repassword} handleChange={selectInput} />
+            <Button disabled={errorName || errorEmail || errorPassword} variant='contained' color='primary' onClick={createAccount}>Criar Conta</Button>
+            <Typography color='primary' variant='subtitle2'>Já tem conta? <Typography variant='button' color='primary' sx={{cursor: 'pointer'}} onClick={handleNavigate}>Fazer Login</Typography></Typography>
           </>
         )}
       </Stack>
