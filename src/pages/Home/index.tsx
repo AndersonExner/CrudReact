@@ -10,6 +10,7 @@ import { v4 as uuid} from 'uuid';
 import { adicionarNovoRecado, adicionarRecados, buscarRecados, limparRecados } from '../../store/modules/recados/recadosSlice';
 import { clearUsuarioLogado } from '../../store/modules/userLogged/userLoggedSlice';
 import styled from 'styled-components';
+import { width } from '@mui/system';
 
 
 export function Home(){
@@ -111,7 +112,7 @@ export function Home(){
 
   //const imageBack = require('../../assets/image-bg.jpg')
 
-  const imageBack = require('../../assets/image-bg.jpg')
+  const imageBack = require('../../assets/image-bg4.jpg')
 
   const style : React.CSSProperties = {
     backgroundImage: `url(${imageBack})`,
@@ -124,25 +125,25 @@ export function Home(){
 
     <Box sx={{ flexGrow: 1}}>
       <Box style={style}>
-        <Grid display={'flex'} justifyContent={'space-around'} pt={5}>
-          <Grid>
+        <Grid container justifyContent={'space-around'} pt={5} padding={2}>
+          <Grid md={6} xs={12}>
             <Typography variant='h4' color='primary'>
               Bem vindo, {(userLogged?.name.toUpperCase())}, você possui {(recadosRedux.length)} recados.
             </Typography>
           </Grid>
-          <Grid>
+          <Grid md={2} xs={12}>
             <Button variant='contained' color='primary' size='large' onClick={logOut}>Salvar e Sair </Button>
           </Grid>
         </Grid>  
 
-        <Grid container justifyContent={'space-around'} alignItems={'center'} marginY={5} padding={2}>
-          <Grid md={3}>
+        <Grid container justifyContent={'space-around'} alignItems={'center'} marginY={2} padding={2} >
+          <Grid md={3} xs={12} mt={3}>
             <InputDefault type='text' label='Descrição' name='description' value={description} color='primary' handleChange={mudarInput} />
           </Grid>
-          <Grid md={6} >
+          <Grid md={6} xs={12} mt={3}>
             <InputDefault type='text' label='Recado' name='detail' value={detail} color='primary' handleChange={mudarInput} />
           </Grid>
-          <Grid md={2} >
+          <Grid md={2} xs={12} mt={3}>
             <Button variant='contained' color='primary' size='large' onClick={salvarRecado}>Salvar Recado</Button>
           </Grid>
         </Grid>
@@ -154,20 +155,20 @@ export function Home(){
         <Grid xs={12}>
 
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table aria-label="simple table">
 
               <TableHead>
                 <TableRow >
-                  <TableCell align="center">ID</TableCell>
-                  <TableCell align="center">Descrição</TableCell>
-                  <TableCell align="center">Detalhamento</TableCell>
-                  <TableCell align="center">Ações</TableCell>
+                  <TableCell width={'10%'} align="center">ID</TableCell>
+                  <TableCell width={'20%'} align="center">Descrição</TableCell>
+                  <TableCell width={'30%'}align="center">Detalhamento</TableCell>
+                  <TableCell width={'20%'}align="center">Ações</TableCell>
                 </TableRow>
               </TableHead>
 
               <TableBody>
                 {recadosRedux.map((row, index) => 
-                  <TableRow component="th" scope="row" key={row.id}>
+                  <TableRow component="th" scope="row" key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell align="center">{index + 1}</TableCell>
                     <TableCell align="center">{row.description}</TableCell>
                     <TableCell align="center">{row.detail}</TableCell>
