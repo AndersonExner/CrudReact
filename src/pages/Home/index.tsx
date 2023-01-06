@@ -128,7 +128,7 @@ export function Home(){
         <Grid container justifyContent={'space-around'} pt={5} padding={2}>
           <Grid md={6} xs={12}>
             <Typography variant='h4' color='primary'>
-              Bem vindo, {(userLogged?.name.toUpperCase())}, você possui {(recadosRedux.length)} recados.
+              Bem vindo {(userLogged?.name.toUpperCase())}, você possui {(recadosRedux.length)} recados.
             </Typography>
           </Grid>
           <Grid md={2} xs={12}>
