@@ -73,16 +73,15 @@ export function ModalAttDel({ open, handleClose, id, mode}: ModalProps) {
             {mode === 'edit' && (
                 <React.Fragment>
                 <DialogTitle id="alert-dialog-title">
-                    {`Editar recado`}
+                    {`EDITAR RECADO`}
                 </DialogTitle>
 
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Informe a descrição e o detalhamento.
                     </DialogContentText>
                     <>
-                        <TextField value={description} name='description' label='Descrição' onChange={(ev) => setDescription(ev.target.value)}/>
-                        <TextField value={detail} name='detail' label='Detalhamento' onChange={(ev) => setDetail(ev.target.value)} />
+                        <TextField value={description} name='description' fullWidth sx={{marginTop:"10px"}}label='Descrição' onChange={(ev) => setDescription(ev.target.value)}/>
+                        <TextField value={detail} name='detail' label='Detalhamento' fullWidth sx={{marginTop:"10px"}} onChange={(ev) => setDetail(ev.target.value)} />
                     
                     </>
                 </DialogContent>
