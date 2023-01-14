@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, unstable_useId } from '@mui/material';
+import { Box, Button, Divider, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { InputDefault, InputName } from '../../components/InputDefault';
@@ -9,8 +9,7 @@ import { atualizarUsuario, buscarUsuarioEmail } from '../../store/modules/users/
 import { v4 as uuid} from 'uuid';
 import { adicionarNovoRecado, adicionarRecados, buscarRecados, limparRecados } from '../../store/modules/recados/recadosSlice';
 import { clearUsuarioLogado } from '../../store/modules/userLogged/userLoggedSlice';
-import styled from 'styled-components';
-import { width } from '@mui/system';
+import { useAppThemeContext } from '../../Context/ThemeContext';
 
 
 export function Home(){
@@ -31,6 +30,8 @@ export function Home(){
   //const [recadosRedux, setRecadosRedux] = useState(useAppSelector(buscarRecados))
 
   const dispatch = useAppDispatch();
+
+  const {toggleTheme} = useAppThemeContext()
 
   useEffect(
     () => {
@@ -68,6 +69,12 @@ export function Home(){
   }
 
   const salvarRecado = () => {
+    
+    if(description === '' || detail === ''){
+      alert('Campos vazios não são permitidos')
+      return 
+    }
+    
     const novoRecado: Recado = {
       id: uuid(),
       description,
@@ -132,6 +139,9 @@ export function Home(){
             </Typography>
           </Grid>
           <Grid md={2} xs={12}>
+            <Button variant='contained' color='primary' size='large' onClick={toggleTheme}>Mudar Tema</Button>
+          </Grid>
+          <Grid md={2} xs={12}>
             <Button variant='contained' color='primary' size='large' onClick={logOut}>Salvar e Sair </Button>
           </Grid>
         </Grid>  
@@ -148,8 +158,8 @@ export function Home(){
           </Grid>
         </Grid>
       
-        <Divider color='#1976d2'/>
-        <Divider color='#1976d2'/>
+        <Divider color='black'/>
+        <Divider color='black'/>
       </Box>
       <Grid container>
         <Grid xs={12}>

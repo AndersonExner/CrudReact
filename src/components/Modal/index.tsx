@@ -36,6 +36,12 @@ export function ModalAttDel({ open, handleClose, id, mode}: ModalProps) {
         }
 
         if(mode === 'edit'){
+            
+            if(description === '' || detail === ''){
+                alert('Campos vazios não são permitidos')
+                return 
+            }
+            
             dispatch(atualizarRecado({id: id, changes: {detail, description}})); 
         }
         

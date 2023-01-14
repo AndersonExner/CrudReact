@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addNovoUsuario, buscarUsuario } from "../../store/modules/users/usersSlice";
 import { setUsuarioLogado } from "../../store/modules/userLogged/userLoggedSlice";
+import { useAppThemeContext } from "../../Context/ThemeContext";
+import { Box } from "@mui/system";
 
 
 export interface FormProps {
@@ -29,6 +31,8 @@ export function Form({ type }: FormProps) {
 
 //variavel que recebe o retorno
   const dispatch = useAppDispatch();
+
+  const {toggleTheme} = useAppThemeContext()
 
   const selectInput = (value: string, key: InputName) => {
     switch (key) {
@@ -153,7 +157,7 @@ export function Form({ type }: FormProps) {
     const userExist = usersRedux.find((user) => user.email === email && user.password === password);
 
     if(!userExist) {
-       const confirma = window.confirm("Usuário não cadastrado. Deseja cadastrar uma conta? ")
+       const confirma = window.confirm("Usuário não cadastrado/senha inválida. Deseja cadastrar uma conta? ")
 
        if(confirma) {
             navigate('/signup')
@@ -169,7 +173,9 @@ export function Form({ type }: FormProps) {
     
   return (
     <>
-      <Stack spacing={2} direction="column" sx={{ width: '80%' }}>
+      <Stack spacing={2} direction="column" sx={{ width: '100%' }} textAlign={"center"}>
+        <Typography variant="h3" color="primary" paddingBottom={2}> SISTEMA DE RECADOS </Typography>
+
         {type === 'login' && (
           <>
             <InputDefault type="email" label="E-mail" name="email" value={email} handleChange={selectInput} color={errorEmail ? 'error' : 'primary'}/>
@@ -189,6 +195,7 @@ export function Form({ type }: FormProps) {
           </>
         )}
       </Stack>
+      
     </>
   )
 }
